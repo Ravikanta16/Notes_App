@@ -1,0 +1,7 @@
+<h2>Notes</h2>
+<ul>
+    <li *ngFor ="let note of notes">
+        {{ note.title }} - {{ note.status }}
+        <button (click)="markDone(note.id)" [disabled]="note.status==='DONE'">Done</button>
+    </li>
+</ul>
