@@ -4,16 +4,20 @@ import { AppService } from './app.service';
 import { NotesModule } from './notes/notes.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Note } from './notes/note.model';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username:'postgres',
-      password:'1618',
-      database:'notesdb',
+      host: process.env.DB_Host,
+      port: +process.env.DB_Port!,
+      username:process.env.DB_Username,
+      password:process.env.DB_Password,
+      database:process.env.DB_Database,
       models: [Note],
       autoLoadModels: true,
       synchronize: true,
